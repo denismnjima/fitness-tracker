@@ -16,7 +16,7 @@ function App() {
           console.log('prev-location',prevLocation)
           console.log('current',location)
           if(prevLocation){
-            const newDistance = getDistance(prevLocation,location)
+            const newDistance = getDistance(prevLocation,{latitude,longitude})
             console.log(newDistance)
             console.log('current cord:',{latitude,longitude})
             setDistance(prev=> prev+newDistance)
