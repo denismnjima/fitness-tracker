@@ -148,6 +148,42 @@ nav .link-list:hover{
   background-color: black;
   border-radius: 10px;
 }
+/* Activity Tracker */
+
+.tab-button{
+  font-size: 70px;
+  background-color: white;
+  height: 80px;
+  width: 80px;
+  border-radius: 5px;
+  text-align: center;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.212);
+}
+.activity-page{
+  position: fixed;
+  bottom: 50px;
+  right: 50px;
+}
+.activity-page .actions{
+  position: absolute;
+  bottom:40px;
+  right: 100px;
+  display: flex;
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.288);
+
+
+}
+.activity-page .single-action{
+  padding: 10px;
+  text-align: center;
+  font-size: 20px;
+}
+.activity-page .single-action p{
+  font-size: 15px;
+}
 @media only screen and (max-width:768px) {
   .dashboard-tab{
     flex-direction: column;

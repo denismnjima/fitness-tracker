@@ -1,3 +1,4 @@
+import ActivityTracker from "./ActivityTracker"
 import DashboardTabs from "./DashboardTabs"
 import Navbar from "./Navbar"
 
@@ -6,6 +7,7 @@ function Homepage() {
     <div className="dashboard">
         <Navbar />
         <DashboardTabs/>
+        <ActivityTracker/>
         
     </div>
   )

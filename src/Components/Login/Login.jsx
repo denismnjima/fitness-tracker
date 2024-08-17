@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './Login.css'; // Import the CSS file
 import AuthImage from '../../assets/AuthImage.jpg'; // Import your image
-import { supabase } from '@supabase/auth-ui-shared';
+import { supabase } from '../../config/supabaseClient';
 import { useUser } from '../../Hooks/useUserStore';
 
 const LoginPage = () => {
@@ -41,7 +41,7 @@ const LoginPage = () => {
         e.preventDefault();
         setError('');
 
-        if (!email || !password || !name) {
+        if (!email || !password) {
             setError('Username, email, and password are required.');
             return;
         }
@@ -50,7 +50,7 @@ const LoginPage = () => {
             setError('Please enter a valid email address.');
             return;
         }
-        console.log(name,weight,email,password)
+        console.log(email,password)
         const {user,error} = await supabase.auth.signUp({email,password})
         if(error){
             console.log(error)

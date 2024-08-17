@@ -3,6 +3,7 @@ import Homepage from "./Components/Homepage"
 import { getDistance } from "geolib"
 import { useEffect, useState } from "react"
 import LoginPage from "./Components/Login/Login"
+import DistanceFinder from "./Components/DistanceFinder"
 
 function App() {
     const [location, setLocation] = useState({latitude:null,longitude:null})
@@ -45,6 +46,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Homepage/>}/>
         <Route path="/login" element={<LoginPage/>}/>
+        <Route path="/distance" element={<DistanceFinder/>}/>
       </Routes>
     </section>
   )
