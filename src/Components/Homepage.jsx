@@ -6,6 +6,7 @@ function Homepage() {
     <div className="dashboard">
         <Navbar />
         <DashboardTabs/>
+        
     </div>
   )
 }

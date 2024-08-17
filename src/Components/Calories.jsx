@@ -14,7 +14,7 @@ function Calories() {
          <SingleBar day="Wen" cals={78}/>
          <SingleBar day="Thur" cals={100}/>
          <SingleBar day="Fri" cals={65}/>
-         <SingleBar day="Sat" cals={55}/>
+         <SingleBar day="Sat" cals={100}/>
       </div>
 
     </div>
