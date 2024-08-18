@@ -81,7 +81,7 @@ function DashboardTabs() {
 
   return (
     <div className="dashboard-tabs">
-      <Calories />
+      <Calories distance={totalDistance} weight={user?.weight} />
       <TotalDistance distance={totalDistance} />
       <DistanceToday today={totalDistanceToday} />
       <Steps today={totalDistanceToday}/>

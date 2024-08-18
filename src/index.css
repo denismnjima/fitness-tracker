@@ -348,6 +348,9 @@ nav .link-list:hover{
     width: 18px;
     flex-wrap: nowrap;
   }
+  .distance-finder img{
+  width: 100%;
+}
 
   
 }

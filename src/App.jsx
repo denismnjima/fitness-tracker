@@ -5,6 +5,7 @@ import DistanceFinder from "./Components/DistanceFinder"
 import { useNavigate } from "react-router-dom"
 import { useEffect } from "react"
 import { useUser } from "./Hooks/useUserStore"
+import Profile from "./Components/Profile"
 
 function App() {
   const navigate = useNavigate()
@@ -26,6 +27,7 @@ function App() {
         <Route path="/" element={<Homepage/>}/>
         <Route path="/login" element={<LoginPage/>}/>
         <Route path="/distance" element={<DistanceFinder/>}/>
+        <Route path="/profile" element={<Profile/>}/>
       </Routes>
     </section>
   )

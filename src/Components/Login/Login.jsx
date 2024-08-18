@@ -1,27 +1,26 @@
-import React, { useState } from 'react';
-import './Login.css'; // Import the CSS file
-import AuthImage from '../../assets/AuthImage.jpg'; // Import your image
+import React, { useState, useEffect } from 'react';
+import './Login.css';
+import AuthImage from '../../assets/AuthImage.jpg';
 import { supabase } from '../../config/supabaseClient';
 import { useUser } from '../../Hooks/useUserStore';
 import { useNavigate } from 'react-router-dom';
-import { useEffect } from 'react';
 
 const LoginPage = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const [isSignIn, setIsSignIn] = useState(true); // To toggle between sign-in and sign-up
+    const [isSignIn, setIsSignIn] = useState(true);
     const [error, setError] = useState('');
-    const {user, setUser} = useUser((state)=>({
-        user:state.user,
-        setUser:state.setUser
-    }))
+    const { user, setUser } = useUser((state) => ({
+        user: state.user,
+        setUser: state.setUser
+    }));
 
-    const navigate = useNavigate()
+    const navigate = useNavigate();
     useEffect(() => {
-      const user = sessionStorage.getItem('user');
-      if (user) {
-        navigate('/');
-      }
+        const user = sessionStorage.getItem('user');
+        if (user) {
+            navigate('/');
+        }
     }, [navigate]);
 
     const validateEmail = (email) => {
@@ -29,7 +28,22 @@ const LoginPage = () => {
         return emailRegex.test(email);
     };
 
-    const handleSignInSubmit = async(e) => {
+    const fetchUserProfile = async (userId) => {
+        const { data, error } = await supabase
+            .from('user_profiles')
+            .select('name, weight')
+            .eq('user_id', userId)
+            .single();
+
+        if (error) {
+            console.error('Error fetching user profile:', error);
+            return null;
+        }
+
+        return data;
+    };
+
+    const handleSignInSubmit = async (e) => {
         e.preventDefault();
         setError('');
 
@@ -42,24 +56,26 @@ const LoginPage = () => {
             setError('Please enter a valid email address.');
             return;
         }
-        const {data,error} = await supabase.auth.signInWithPassword({email,password})
-        if(error){
-            console.log(error)
-        }else{
-            setUser(data.user)
-            sessionStorage.setItem('user',JSON.stringify(data.user))
-            console.log('sucessful',data)
-            navigate('/')
-        }
 
+        const { data, error } = await supabase.auth.signInWithPassword({ email, password });
+
+        if (error) {
+            setError(error.message);
+        } else {
+            const userProfile = await fetchUserProfile(data.user.id);
+            const extendedUser = { ...data.user, ...userProfile };
+            setUser(extendedUser);
+            sessionStorage.setItem('user', JSON.stringify(extendedUser));
+            navigate('/');
+        }
     };
 
-    const handleSignUpSubmit = async(e) => {
+    const handleSignUpSubmit = async (e) => {
         e.preventDefault();
         setError('');
 
         if (!email || !password) {
-            setError('Username, email, and password are required.');
+            setError('Email and password are required.');
             return;
         }
 
@@ -67,15 +83,17 @@ const LoginPage = () => {
             setError('Please enter a valid email address.');
             return;
         }
-        console.log(email,password)
-        const {data,error} = await supabase.auth.signUp({email,password})
-        if(error){
-            console.log(error)
-        }else{
-            setUser(data.user)
-            sessionStorage.setItem('user',JSON.stringify(data.user))
-            console.log('sucessful',data)
-            navigate('/')
+
+        const { data, error } = await supabase.auth.signUp({ email, password });
+
+        if (error) {
+            setError(error.message);
+        } else {
+            const userProfile = await fetchUserProfile(data.user.id);
+            const extendedUser = { ...data.user, ...userProfile };
+            setUser(extendedUser);
+            sessionStorage.setItem('user', JSON.stringify(extendedUser));
+            navigate('/');
         }
     };
 
@@ -84,7 +102,7 @@ const LoginPage = () => {
             <div className="image-side" style={{ backgroundImage: `url(${AuthImage})` }}></div>
             <div className="form-side">
                 <h2>{isSignIn ? 'Sign In' : 'Sign Up'}</h2>
-                
+
                 {error && <div className="error">{error}</div>}
 
                 <form onSubmit={isSignIn ? handleSignInSubmit : handleSignUpSubmit}>
@@ -109,10 +127,7 @@ const LoginPage = () => {
                         />
                     </div>
 
-                    <button
-                      type="submit" 
-                      className="button">{isSignIn ? 'Sign In' : 'Sign Up'}
-                     </button>
+                    <button type="submit" className="button">{isSignIn ? 'Sign In' : 'Sign Up'}</button>
                 </form>
 
                 <p>
