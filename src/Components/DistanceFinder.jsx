@@ -117,7 +117,7 @@ function DistanceFinder() {
     const EndTracker = () => {
         setIsCounting(false);
         setSecs(0);
-        setDistance(0); // Optionally reset distance on end
+        setDistance(0); 
         setIsSuccess(false);
         navigate('/');
     };
@@ -131,7 +131,7 @@ function DistanceFinder() {
             </div>
             <div className='distance'>
                 <p>Distance</p>
-                <h3>{(distance / 1000).toFixed(2)}</h3> {/* Show distance in kilometers */}
+                <h3>{(distance / 1000).toFixed(2)}</h3> 
             </div>
             <div className='speed'>
                 <p>Pace</p>
