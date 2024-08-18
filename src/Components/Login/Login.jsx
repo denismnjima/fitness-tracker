@@ -3,23 +3,33 @@ import './Login.css'; // Import the CSS file
 import AuthImage from '../../assets/AuthImage.jpg'; // Import your image
 import { supabase } from '../../config/supabaseClient';
 import { useUser } from '../../Hooks/useUserStore';
+import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 
 const LoginPage = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [isSignIn, setIsSignIn] = useState(true); // To toggle between sign-in and sign-up
     const [error, setError] = useState('');
-
     const {user, setUser} = useUser((state)=>({
         user:state.user,
         setUser:state.setUser
     }))
+
+    const navigate = useNavigate()
+    useEffect(() => {
+      const user = sessionStorage.getItem('user');
+      if (user) {
+        navigate('/');
+      }
+    }, [navigate]);
+
     const validateEmail = (email) => {
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         return emailRegex.test(email);
     };
 
-    const handleSignInSubmit = (e) => {
+    const handleSignInSubmit = async(e) => {
         e.preventDefault();
         setError('');
 
@@ -32,9 +42,16 @@ const LoginPage = () => {
             setError('Please enter a valid email address.');
             return;
         }
+        const {data,error} = await supabase.auth.signInWithPassword({email,password})
+        if(error){
+            console.log(error)
+        }else{
+            setUser(data.user)
+            sessionStorage.setItem('user',JSON.stringify(data.user))
+            console.log('sucessful',data)
+            navigate('/')
+        }
 
-        // Sign in logic goes here
-        console.log('Signing in with', { email, password });
     };
 
     const handleSignUpSubmit = async(e) => {
@@ -51,12 +68,14 @@ const LoginPage = () => {
             return;
         }
         console.log(email,password)
-        const {user,error} = await supabase.auth.signUp({email,password})
+        const {data,error} = await supabase.auth.signUp({email,password})
         if(error){
             console.log(error)
         }else{
-            setUser(user)
-            console.log('sucessful',user)
+            setUser(data.user)
+            sessionStorage.setItem('user',JSON.stringify(data.user))
+            console.log('sucessful',data)
+            navigate('/')
         }
     };
 
@@ -90,7 +109,10 @@ const LoginPage = () => {
                         />
                     </div>
 
-                    <button type="submit" className="button">{isSignIn ? 'Sign In' : 'Sign Up'}</button>
+                    <button
+                      type="submit" 
+                      className="button">{isSignIn ? 'Sign In' : 'Sign Up'}
+                     </button>
                 </form>
 
                 <p>

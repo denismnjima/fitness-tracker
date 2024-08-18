@@ -176,6 +176,50 @@ nav .link-list:hover{
 
 
 }
+/* Distance Finder */
+.distance-finder{
+  background-color: var(--lavender-blush);
+  min-height: 100vh;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.distance-finder img{
+  height: 300px;
+  display: block;
+  margin: 20px auto;
+  border-radius: 20px;
+}
+.duration p{
+  color: grey;
+  text-align: center;
+
+}
+.duration{
+  margin: 10px;
+}
+.duration h3{
+  font-size: 35px;
+}
+.distance p{
+  color: grey;
+  text-align: center;
+}
+.distance{
+  margin: 10px;
+}
+.speed{
+  margin: 10px;
+  text-align: center;
+}
+.distance h3{
+  font-size: 80px;
+  /* background-color: var(--melon); */
+  border-radius: 10px;
+  padding: 10px;
+}
 .activity-page .single-action{
   padding: 10px;
   text-align: center;
@@ -183,6 +227,62 @@ nav .link-list:hover{
 }
 .activity-page .single-action p{
   font-size: 15px;
+}
+.distance-finder .buttons{
+  display: flex;
+}
+.distance-finder .buttons button{
+  height: 50px;
+  min-width: 150px;
+  border-radius: 20px;
+  border: none;
+  margin: 10px;
+  font-size: 20px;
+}
+.pause{
+  background-color: rgba(255, 166, 0, 0.356);
+  color: orangered;
+}
+.play{
+  background-color: rgba(81, 255, 0, 0.356);
+  color: green;
+}
+.end{
+  background-color: rgba(0, 4, 255, 0.356);
+  color: blue;
+}
+
+/* Modal */
+.modal-container{
+  background-color: rgba(0, 0, 0, 0.144);
+  position: fixed;
+  top:0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 30px;
+}
+.modal-container .modal{
+  background-color: white;
+  padding: 30px;
+  border-radius: 10px;
+  text-align: center;
+}
+.modal-container .loader-icon{
+  width: 70px;
+  height: 70px;
+}
+.modal button{
+  background-color: green;
+  display: block;
+  border: none;
+  padding: 10px 20px;
+  color: white;
+  border-radius: 10px;
+  margin: 10px auto;
 }
 @media only screen and (max-width:768px) {
   .dashboard-tab{
