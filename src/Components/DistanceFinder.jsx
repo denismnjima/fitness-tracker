@@ -55,7 +55,7 @@ function DistanceFinder() {
             if (isCounting) { // Only update distance when counting
                 if (prevLocation.latitude != null && prevLocation.longitude != null) {
                     const newDistance = getDistance(prevLocation, { latitude, longitude });
-                    setDistance(prev => prev + newDistance);
+                    setDistance(prev => prev + newDistance/1000);
                 }
                 setPrevLocation({ latitude, longitude });
             }

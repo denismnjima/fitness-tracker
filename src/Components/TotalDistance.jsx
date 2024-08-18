@@ -1,7 +1,7 @@
 
 function TotalDistance({distance,today}) {
   return (
-    <div className="single-tab calories">
+    <div className="single-tab">
     <p className="tab-title">Total Exersice Distance</p>
     <div className="info distance-info">
        <p>You have walked/ran a total distance of:</p>
